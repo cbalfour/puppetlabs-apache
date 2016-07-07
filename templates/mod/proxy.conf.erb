@@ -24,4 +24,17 @@
   # ("Full" adds the server version; "Block" removes all outgoing Via: headers)
   # Set to one of: Off | On | Full | Block
   ProxyVia On
+
+  <% if @proxy_remotes and ! @proxy_remotes.empty? %>
+    <%- [@proxy_remotes].flatten.compact.each do |proxy_remote| -%>
+      <%- if proxy_remote["match"].is_a? Array %>
+        <%- proxy_remote["match"].each do |match| -%>
+  ProxyRemote <%= match -%> <%= proxy_remote["remote_server"] %>
+        <%- end -%>
+      <%- else -%>
+  ProxyRemote <%= proxy_remote["match"] -%> <%= proxy_remote["remote_server"] %>
+      <%- end -%>
+    <%- end %>
+  <% end -%>
+
 </IfModule>
