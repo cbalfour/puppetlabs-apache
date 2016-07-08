@@ -25,16 +25,28 @@
   # Set to one of: Off | On | Full | Block
   ProxyVia On
 
-  <% if @proxy_remotes and ! @proxy_remotes.empty? %>
+  <%- if @proxy_remotes and ! @proxy_remotes.empty? -%>
     <%- [@proxy_remotes].flatten.compact.each do |proxy_remote| -%>
-      <%- if proxy_remote["match"].is_a? Array %>
+      <%- if proxy_remote["match"].is_a? Array -%>
         <%- proxy_remote["match"].each do |match| -%>
   ProxyRemote <%= match -%> <%= proxy_remote["remote_server"] %>
         <%- end -%>
       <%- else -%>
   ProxyRemote <%= proxy_remote["match"] -%> <%= proxy_remote["remote_server"] %>
       <%- end -%>
-    <%- end %>
-  <% end -%>
+    <%- end -%>
+  <%- end -%>
+
+  <%- if @proxy_remote_matches and ! @proxy_remote_matches.empty? -%>
+    <%- [@proxy_remote_matches].flatten.compact.each do |proxy_remote_match| -%>
+      <%- if proxy_remote_match["regex"].is_a? Array -%>
+        <%- proxy_remote_match["regex"].each do |match| -%>
+  ProxyRemoteMatch <%= match -%> <%= proxy_remote_match["remote_server"] %>
+        <%- end -%>
+      <%- else -%>
+  ProxyRemoteMatch <%= proxy_remote_match["regex"] -%> <%= proxy_remote_match["remote_server"] %>
+      <%- end -%>
+    <%- end -%>
+  <%- end -%>
 
 </IfModule>

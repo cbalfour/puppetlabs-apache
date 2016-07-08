@@ -4,6 +4,7 @@ class apache::mod::proxy (
   $apache_version = undef,
   $package_name   = undef,
   $proxy_remotes  = undef,
+  $proxy_remote_matches  = undef,
 ) {
   include ::apache
   $_apache_version = pick($apache_version, $apache::apache_version)
